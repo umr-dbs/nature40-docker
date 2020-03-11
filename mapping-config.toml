@@ -1,0 +1,83 @@
+[log]
+level="DEBUG"
+
+[fcgi]
+threads=40 #the number of threads to spawn in FCGI mode
+
+[userdb]
+backend="sqlite" #The backend to use for the user db
+
+[userdb.sqlite]
+location="/app/data/userdb/userdb.sqlite" #The file path where the sqlite database is stored
+
+[cache]
+enabled=true
+type="local" #Cache either inside (F)CGI process or use remote cache
+replacement="lru" #The replacement strategy of the cache
+strategy="always" #When to cache (always|never)
+
+#Size of <type> in bytes. <type> can be raster, points, lines, polygons, plots, provenance
+[cache.raster]
+size=524288000
+[cache.points]
+size=524288000
+[cache.lines]
+size=524288000
+[cache.polygons]
+size=524288000
+[cache.plots]
+size=524288000
+[cache.provenance]
+size=524288000
+
+[global]
+debug=true #Global debug flag e.g. used in services
+[global.opencl]
+forcecpu=true #Force OpenCL to use the CPU instead of GPU
+
+[rasterdb]
+backend="local" #Remote specifies to use a tileserver to fetch raster tiles instead of loading them from disk (local|remote)
+
+[rasterdb.local]
+location="/app/data/rastersources" #Specify the location for the local rasterdb to use for storing data.
+
+[wms]
+norasterforgiventimeexception=false #Configures the handling of NoRasterForGivenTimeException in WMS. If set to 0, a requested tile for a raster where there is no data for the given time results in a blank tile. If it is set to 1, the Exception is thrown.
+
+[gdal_source]
+injectable_user_artifacts=["jwt:token"]
+
+[gdalsource.datasets]
+path="/app/data/gdal" #The path to the JSON data set descriptions for the GDALSource
+
+[ogrsource.files]
+path="/app/data/ogr" #The path to the JSON data set descriptions for the OGRSource
+
+[crsdirectory]
+location="/app/mapping-core/conf/crs.json" #The location of the file containing the definitions of the supported CRS
+
+[rserver]
+port=10200
+loglevel="info" # The log level for the rserver (off, error, warn, info, debug, trace)
+packages=["caret", "ggplot2", "randomForest", "raster", "sp"] # The R packages that are loaded when starting the rserver.
+
+[operators.r]
+location="tcp:127.0.0.1:10200"
+
+[jwt]
+provider_key='''-----BEGIN PUBLIC KEY-----
+
+MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQAG+duEUEgoL5NxHoa9vUpphdgqu5I
+2eE4zblFs8ox1W5tGMO/KOyUyLK9lIx4T+huB7FsMH+CeRfQlwNVy9x1RbEALib4
+SSl2nOvJvAwEsIxYeqxgoijJt9s5c9lvnoTLCK2nfxbdRKHvAlu9IPpExUE2Ge72
+7WVWWlhxr+E5+3Rc9Yg=
+-----END PUBLIC KEY-----'''
+algorithm="ES512"
+client_key=""
+allowed_clock_skew_seconds=10
+redirect_token="eyJhbGciOiJFUzUxMiJ9.aHR0cDovL2xvY2FsaG9zdDo0MjAwLyMv.AfSZpJaeZ6wzPxzP43LeOP_q9CoggWUuRHj6Y8HPNvmVUfF8HOcSsSuHtUcd4JSWA0LT8y2qQAb7Nd3EaQ7e520VAIwb7omyxxz4MRyp3fGXr-rsY8-Q4JYudU6cozmYyao9H3plKrgyxb8xvkcCHV6z9BWg7Qz4hx-MTW_KxO5hc2Y3"
+
+[nature40]
+rasterdb_url="https://bale.online.uni-marburg.de"
+catalog_url="https://vhrz1078.hrz.uni-marburg.de:64371/entities"
+catalog_auth_url="https://vhrz1078.hrz.uni-marburg.de:64371/web/?jws="

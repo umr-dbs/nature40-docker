@@ -1,0 +1,14 @@
+{
+  "MAPPING_URL": "cgi-bin/mapping_cgi",
+  "MAP": {
+    "BACKGROUND_LAYER": "OSM",
+    "HOSTED_BACKGROUND_SERVICE": "https://vat.gfbio.org/mapcache/",
+    "HOSTED_BACKGROUND_LAYER_NAME": "osm",
+    "HOSTED_BACKGROUND_SERVICE_VERSION": "1.1.1",
+    "REFRESH_LAYERS_ON_CHANGE": false
+  },
+  "PROJECT": "Nature40",
+  "TIME": {
+    "ALLOW_RANGES": false
+  }
+}
